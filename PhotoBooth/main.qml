@@ -25,12 +25,13 @@ ApplicationWindow {
 
             exposure {
                 exposureCompensation: -1.0
-                exposureMode: Camera.ExposurePortrait
+                exposureMode: Camera.ExposureBeach
             }
 
 //                flash.mode: Camera.FlashRedEyeReduction
 
             imageCapture {
+                resolution: Qt.size(120,120)
                 onImageCaptured: {
                     screenView_pictureView_photoPreview.source = preview  // Show the preview in an Image
                     console.log("imageCapture successfull")
@@ -78,14 +79,17 @@ ApplicationWindow {
                         {
                             id: screenView_pictureView_live
                             source: camera
-                            anchors.fill: parent
+                            height: 100
+                            width:100
                             focus : visible // to receive focus and capture key events when visible
+
                         }
 
                         Image
                         {
                             id: screenView_pictureView_photoPreview
-                            anchors.fill: parent
+
+                            width: 130; height: 100
                         }
                     }
                 }
@@ -102,14 +106,14 @@ ApplicationWindow {
 
                 Rectangle
                 {
-                         id:screenView_controleArea_button
-                         width: parent.width < parent.height ?parent.width : parent.height
-                         anchors.horizontalCenter: parent.horizontalCenter
-                        height: width
-                         color: "red"
-                         border.color: "white"
-                         border.width: 5
-                         radius: width*0.5
+                    id:screenView_controleArea_button
+                    width: parent.width < parent.height ?parent.width : parent.height
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    height: width
+                    color: "red"
+                    border.color: "white"
+                    border.width: 5
+                    radius: width*0.5
 
                      Text
                      {
@@ -128,7 +132,7 @@ ApplicationWindow {
                          anchors.fill: parent
                          onClicked:
                          {
-                             parent.color = "blue";
+                             parent.color = "darkred";
                              //screenView_pictureView_live.visible=false;
                              camera.start();
                              camera.imageCapture.capture();
