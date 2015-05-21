@@ -15,7 +15,7 @@ ApplicationWindow {
         id: idMainWindow
         width: idWindow.width
         height: idWindow.height
-        color: "red"
+        color: "white"
 
         //Functions
         Camera
@@ -45,25 +45,49 @@ ApplicationWindow {
 
             Rectangle
             {
-                id: screenView_pictureView
+                id: screenView_picture
                 visible: true
                 width: parent.width
                 anchors.leftMargin: 22
                 anchors.rightMargin: 22
                 height: parent.height*0.7
-                color: "blue"
+                color: "lightgrey"
 
-                VideoOutput
+                Rectangle
                 {
-                    id: screenView_pictureView_live
-                    source: camera
-                    anchors.fill: parent
-                    focus : visible // to receive focus and capture key events when visible
-                }
-                Image
-                {
-                    id: screenView_pictureView_photoPreview
-                    anchors.fill: parent
+                    id: screenView_pictureView_frame
+                    visible: true
+                    anchors.leftMargin: 22
+                    anchors.rightMargin: 22
+                    height: parent.height
+                    width: parent.width*0.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    color: "black"
+
+                    Rectangle
+                    {
+                        id: screenView_pictureView
+                        height: parent.height*0.96
+                        width: parent.width
+                        anchors.verticalCenter: parent.verticalCenter
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        color: "black"
+
+                        VideoOutput
+                        {
+                            id: screenView_pictureView_live
+                            source: camera
+                            anchors.fill: parent
+                            focus : visible // to receive focus and capture key events when visible
+                        }
+
+                        Image
+                        {
+                            id: screenView_pictureView_photoPreview
+                            anchors.fill: parent
+                        }
+                    }
                 }
 
             }
@@ -73,17 +97,18 @@ ApplicationWindow {
                 width: parent.width
                 height: parent.height*0.3
                 anchors.bottom: parent.bottom
-                color: "green"
+                color: "lightgrey"
+
 
                 Rectangle
                 {
                          id:screenView_controleArea_button
                          width: parent.width < parent.height ?parent.width : parent.height
                          anchors.horizontalCenter: parent.horizontalCenter
-                         height: width
+                        height: width
                          color: "red"
-                         border.color: "black"
-                         border.width: 1
+                         border.color: "white"
+                         border.width: 5
                          radius: width*0.5
 
                      Text
@@ -92,10 +117,10 @@ ApplicationWindow {
                          anchors.horizontalCenter: parent.horizontalCenter
                          anchors.verticalCenter: parent.verticalCenter
                               //anchors.fill : parent
-                              color: "black"
-                              text: "Boom"
-                              font.family: "Ubuntu"
-                              font.pixelSize: 28
+                        color: "white"
+                        text: "Take my \n Picture!"
+                        font.family: "Ubuntu"
+                        font.pixelSize: 28
                      }
                      MouseArea
                      {
