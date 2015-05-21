@@ -79,10 +79,7 @@ ApplicationWindow {
                         {
                             id: screenView_pictureView_live
                             source: camera
-                            height: 1000
-                            width:1000
-                            fillMode: Image.TileHorizontally
-
+                            anchors.fill: parent
                             focus : visible // to receive focus and capture key events when visible
 
                         }
