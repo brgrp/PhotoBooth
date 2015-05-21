@@ -11,6 +11,11 @@ ApplicationWindow {
     height: 1024
     visible: true
 
+    Image {
+        id: preview_image
+
+    }
+
     Rectangle {
         id: idMainWindow
         width: idWindow.width
@@ -22,6 +27,7 @@ ApplicationWindow {
         {
             id: camera
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
+            captureMode: Camera.CaptureStillImage
 
             exposure {
                 exposureCompensation: -1.0
@@ -29,16 +35,12 @@ ApplicationWindow {
             }
 
             imageCapture {
-                resolution: Qt.size(120,120)
                 onImageCaptured: {
-                    videoPreview.source = preview  // Show the preview in an Image
+                    screenView_pictureView_photoBIG.source = preview  // Show the preview in an Image
                     console.log("imageCapture successfull")
                 }
             }
         }
-
-
-
 
         Rectangle
         {
@@ -67,8 +69,7 @@ ApplicationWindow {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     clip: true
-                    Image { source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg" }
-
+                    Image { source: "https://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg" }
 
                     Rectangle
                     {
@@ -81,21 +82,42 @@ ApplicationWindow {
                         clip: true
                         border.color: "red"
                         border.width: 5
+
                         VideoOutput
                         {
                             id: screenView_pictureView_live
                             source: camera
-                            //anchors.fill: parent
-                            focus : visible // to receive focus and capture key events when visible
-
+                            focus: visible
+                            smooth: true
                         }
 
                         Image
                         {
+                            clip: true
                             id: screenView_pictureView_photoPreview
-
+                            //anchors.fill: parent
+                            fillMode: Image.PreserveAspectFit
+                            asynchronous: true
+                            smooth: true
                         }
                     }
+                }
+
+                Rectangle
+                {
+                    id: screenView_pictureView_BigScreen
+                    visible: false
+
+                    Image
+                    {
+                        clip: true
+                        id: screenView_pictureView_photoBIG
+                        //anchors.fill: parent
+                        fillMode: Image.PreserveAspectFit
+                        asynchronous: true
+                        smooth: true
+                    }
+
                 }
 
                 MouseArea
@@ -105,10 +127,12 @@ ApplicationWindow {
                     onClicked:
                     {
                         screenView_controleArea_button_text.color = "red";
-                        camera.start();
+                        console.log("Take new picture")
+
                         screenView_pictureView_live.visible=true;
-                        screenView_pictureView_live.enabled=true
-                        console.log("Make new picture")
+                        screenView_pictureView_live.enabled=true;
+                        camera.imageCapture.capture();
+
                     }
                 }
 
@@ -155,6 +179,8 @@ ApplicationWindow {
                              parent.color = "darkred";
                              screenView_pictureView_live.visible=false;
                              screenView_pictureView_live.enabled=false;
+                             screenView_pictureView_frame.visible=false;
+                             screenView_pictureView_BigScreen.visible=true;
                              camera.imageCapture.capture();
                              camera.stop();
                          }
