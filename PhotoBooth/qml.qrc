@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>PhotoPreview.qml</file>
+        <file>VideoPreview.qml</file>
     </qresource>
 </RCC>

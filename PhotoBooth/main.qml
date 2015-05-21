@@ -28,16 +28,17 @@ ApplicationWindow {
                 exposureMode: Camera.ExposureBeach
             }
 
-//                flash.mode: Camera.FlashRedEyeReduction
-
             imageCapture {
                 resolution: Qt.size(120,120)
                 onImageCaptured: {
-                    screenView_pictureView_photoPreview.source = preview  // Show the preview in an Image
+                    videoPreview.source = preview  // Show the preview in an Image
                     console.log("imageCapture successfull")
                 }
             }
         }
+
+
+
 
         Rectangle
         {
@@ -54,6 +55,7 @@ ApplicationWindow {
                 height: parent.height*0.7
                 color: "lightgrey"
 
+
                 Rectangle
                 {
                     id: screenView_pictureView_frame
@@ -64,7 +66,6 @@ ApplicationWindow {
                     width: parent.width*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
-                    color: "black"
 
                     Rectangle
                     {
@@ -90,6 +91,20 @@ ApplicationWindow {
 
                             width: 130; height: 100
                         }
+                    }
+                }
+
+                MouseArea
+                {
+                    id:screenView_pictureView_button_mousearea
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        screenView_controleArea_button_text.color = "red";
+                        camera.start();
+                        screenView_pictureView_live.visible=true;
+                        screenView_pictureView_live.enabled=true
+                        console.log("Make new picture")
                     }
                 }
 
@@ -125,34 +140,24 @@ ApplicationWindow {
                         font.family: "Ubuntu"
                         font.pixelSize: 28
                      }
+
                      MouseArea
                      {
                          id:screenView_controleArea_button_mousearea
                          anchors.fill: parent
                          onClicked:
                          {
+
                              parent.color = "darkred";
-                             //screenView_pictureView_live.visible=false;
-                             camera.start();
+                             screenView_pictureView_live.visible=false;
+                             screenView_pictureView_live.enabled=false;
                              camera.imageCapture.capture();
                              camera.stop();
-
-
-
-
                          }
                      }
-
                 }
-
-
             }
-
-
-
         }
-
-
     }
 
 
