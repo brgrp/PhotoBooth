@@ -53,13 +53,13 @@ ApplicationWindow {
                 height: parent.height*0.7
                 color: "blue"
 
-//                VideoOutput
-//                {
-//                    id: screenView_pictureView_live
-//                    source: camera
-//                    anchors.fill: parent
-//                    focus : visible // to receive focus and capture key events when visible
-//                }
+                VideoOutput
+                {
+                    id: screenView_pictureView_live
+                    source: camera
+                    anchors.fill: parent
+                    focus : visible // to receive focus and capture key events when visible
+                }
                 Image
                 {
                     id: screenView_pictureView_photoPreview
