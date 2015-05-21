@@ -51,7 +51,7 @@ ApplicationWindow {
                 width: parent.width
                 anchors.leftMargin: 22
                 anchors.rightMargin: 22
-                height: parent.height*0.7
+                height: parent.height*0.75
                 color: "lightgrey"
 
                 Rectangle
@@ -61,25 +61,30 @@ ApplicationWindow {
                     anchors.leftMargin: 22
                     anchors.rightMargin: 22
                     height: parent.height
-                    width: parent.width*0.5
+                    width: parent.height
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
+                    clip: true
+                    Image { source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg" }
+
                     color: "black"
 
                     Rectangle
                     {
                         id: screenView_pictureView
-                        height: parent.height*0.96
-                        width: parent.width
+                        height: parent.height*0.9
+                        width: parent.height*0.9
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
-                        color: "black"
-
+                        color: "red"
+                        clip: true
+                        border.color: "red"
+                        border.width: 5
                         VideoOutput
                         {
                             id: screenView_pictureView_live
                             source: camera
-                            anchors.fill: parent
+                            //anchors.fill: parent
                             focus : visible // to receive focus and capture key events when visible
 
                         }
@@ -88,7 +93,6 @@ ApplicationWindow {
                         {
                             id: screenView_pictureView_photoPreview
 
-                            width: 130; height: 100
                         }
                     }
                 }
@@ -98,7 +102,7 @@ ApplicationWindow {
             {
                 id: screenView_controleArea
                 width: parent.width
-                height: parent.height*0.3
+                height: parent.height*0.25
                 anchors.bottom: parent.bottom
                 color: "lightgrey"
 
@@ -146,7 +150,7 @@ ApplicationWindow {
                 }
 
 
-            }
+           }
 
 
 
