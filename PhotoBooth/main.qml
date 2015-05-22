@@ -13,7 +13,6 @@ ApplicationWindow {
 
     Image {
         id: preview_image
-
     }
 
     Rectangle {
@@ -23,8 +22,7 @@ ApplicationWindow {
         color: "white"
 
         //Functions
-        Camera
-        {
+        Camera {
             id: camera
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
             captureMode: Camera.CaptureStillImage
@@ -39,21 +37,17 @@ ApplicationWindow {
                     //screenView_pictureView_photoPreview.source = preview  // Show the preview in an Image
                     screenView_pictureView_photoBIG.source=preview
                     console.log("imageCapture successfull")
-
-
                 }
             }
 
 
         }
 
-        Rectangle
-        {
+        Rectangle {
             id: screenView
             anchors { fill: parent; margins: 10 }
 
-            Rectangle
-            {
+            Rectangle {
                 id: screenView_left
                 visible: true
                 width: parent.width*0.2
@@ -62,8 +56,7 @@ ApplicationWindow {
                 color: "red"
             }
 
-            Rectangle
-            {
+            Rectangle {
                 id: screenView_midle
                 visible: true
                 width: parent.width*0.6
@@ -72,8 +65,7 @@ ApplicationWindow {
                 height: parent.height
                 color: "green"
 
-                Rectangle
-                {
+                Rectangle {
                     id: screenView_picture
                     visible: true
                     width: parent.width
@@ -82,8 +74,7 @@ ApplicationWindow {
                     height: parent.height*0.75
                     color: "lightgrey"
 
-                    Rectangle
-                    {
+                    Rectangle {
                         id: screenView_pictureView_frame
                         visible: true
                         anchors.leftMargin: 22
@@ -94,8 +85,9 @@ ApplicationWindow {
                         anchors.horizontalCenter: parent.horizontalCenter
                         clip: true
                         Image { source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg" }
-                        Rectangle
-                        {
+
+
+                        Rectangle {
                             id: screenView_pictureView
                             height: parent.height*0.9
                             width: parent.height*0.9
@@ -105,7 +97,6 @@ ApplicationWindow {
                             clip: true
                             border.color: "black"
                             border.width: 5
-                                                                //transform: Scale {xScale: 0.5; yScale: 0.7}
 
                             VideoOutput
                             {
@@ -118,31 +109,19 @@ ApplicationWindow {
                                 transform: Scale {xScale: 0.938; yScale:0.938}
                                 x:-(width-parent.width)/2
                             }
-
-//                            Text
-//                            {
-//                                x: parent.x+200
-//                                anchors.verticalCenter: parent.verticalCenter
-//                                //anchors.fill : parent
-//                                color: "red"
-//                                text: "scale: " + parent.height/screenView_pictureView_live.height + "\ndeltaX: " + -(width-parent.width)/2+ "\ndeltaY: " + -(height-parent.height)/2
-//                                font.pixelSize: 28
-//                            }
-
                         }
                     }
-
-
                 }
-                Rectangle
-                {
+
+
+                Rectangle {
                     id: screenView_controleArea
                     width: parent.width
                     height: parent.height*0.25
                     anchors.bottom: parent.bottom
                     color: "lightgrey"
-                    Rectangle
-                    {
+
+                    Rectangle {
                         id:screenView_controleArea_button
                         width: parent.width < parent.height ?parent.width : parent.height
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -152,8 +131,7 @@ ApplicationWindow {
                         border.width: 5
                         radius: width*0.5
 
-                        Text
-                        {
+                        Text {
                             id:screenView_controleArea_button_text
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
@@ -176,9 +154,9 @@ ApplicationWindow {
                                 screenView.visible=false;
                                 camera.imageCapture.capture();
                                 screenView_pictureView_photoBIG_button.color = "red";
-                                camera.imageCapture.captureToLocation("../../../Bilder/"+Date.now()+".png");
+                                //camera.imageCapture.captureToLocation("~/git/PhotoBooth/build-PhotoBooth-Desktop_Qt_5_4_0_GCC_64bit-Debug/Bilder"+Date.now()+".png");
                                 screenView_pictureView_BigScreen.visible=true;
-                                //camera.stop();
+                                camera.stop();
                             }
                         }
                     }
@@ -252,8 +230,8 @@ ApplicationWindow {
                     screenView.visible=true;
                     screenView_pictureView_BigScreen.visible=false;
                     screenView_controleArea_button.color="red";
-                    screenView_pictureView_photoBIG.source="";
-                    //camera.start();
+                    //screenView_pictureView_photoBIG.source="";
+                    camera.start();
 
                 }
             }
