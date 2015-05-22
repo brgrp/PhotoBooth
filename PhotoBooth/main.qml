@@ -8,11 +8,12 @@ ApplicationWindow {
     id:idWindow
     title: qsTr("PhotoBooth")
     width: 1280
-    height: 1024
+    height: 800
     visible: true
 
     Image {
         id: preview_image
+
     }
 
     Rectangle {
@@ -22,7 +23,8 @@ ApplicationWindow {
         color: "white"
 
         //Functions
-        Camera {
+        Camera
+        {
             id: camera
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
             captureMode: Camera.CaptureStillImage
@@ -40,14 +42,19 @@ ApplicationWindow {
                 }
             }
 
-
         }
 
-        Rectangle {
+        Rectangle
+        {
             id: screenView
             anchors { fill: parent; margins: 10 }
+            Component.onCompleted: console.log("Completed Running!")
 
-            Rectangle {
+
+
+
+            Rectangle
+            {
                 id: screenView_left
                 visible: true
                 width: parent.width*0.2
@@ -56,7 +63,8 @@ ApplicationWindow {
                 color: "red"
             }
 
-            Rectangle {
+            Rectangle
+            {
                 id: screenView_midle
                 visible: true
                 width: parent.width*0.6
@@ -65,7 +73,8 @@ ApplicationWindow {
                 height: parent.height
                 color: "green"
 
-                Rectangle {
+                Rectangle
+                {
                     id: screenView_picture
                     visible: true
                     width: parent.width
@@ -74,20 +83,24 @@ ApplicationWindow {
                     height: parent.height*0.75
                     color: "lightgrey"
 
-                    Rectangle {
+                    Rectangle
+                    {
                         id: screenView_pictureView_frame
                         visible: true
-                        anchors.leftMargin: 22
-                        anchors.rightMargin: 22
+                        //anchors.leftMargin: 22
+                        //anchors.rightMargin: 22
                         height: parent.height
                         width: parent.height
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
                         clip: true
-                        Image { source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg" }
 
+                        Image {
+                            source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg"
+                        }
 
-                        Rectangle {
+                        Rectangle
+                        {
                             id: screenView_pictureView
                             height: parent.height*0.9
                             width: parent.height*0.9
@@ -98,30 +111,48 @@ ApplicationWindow {
                             border.color: "black"
                             border.width: 5
 
+//                            transform: Scale {xScale: parent.height/screenView_pictureView_live.height; yScale: parent.height/screenView_pictureView_live.height}
+
                             VideoOutput
                             {
                                 id: screenView_pictureView_live
+                                anchors.top:parent.top
+                                anchors.bottom: parent.bottom
                                 source: camera
                                 orientation:1
                                 //anchors.fill: parent
 
                                 focus : visible // to receive focus and capture key events when visible
-                                transform: Scale {xScale: 0.938; yScale:0.938}
+                                transform: Scale {xScale: screenView_pictureView.height/screenView_pictureView_live.height; yScale: screenView_pictureView.height/screenView_pictureView_live.height}
+                                //transform: Scale {xScale: 2; yScale: 2}
+
                                 x:-(width-parent.width)/2
                             }
+
+                            Text
+                            {
+                                x: parent.x+200
+                                anchors.verticalCenter: parent.verticalCenter
+                                //anchors.fill : parent
+                                color: "red"
+                                text: "scale: " + screenView_pictureView.height/screenView_pictureView_live.height + "\ndeltaX: " + -(width-screenView_pictureView.width)/2+ "\ndeltaY: " + -(height-screenView_pictureView.height)/2
+                                font.pixelSize: 28
+                            }
+
                         }
                     }
+
+
                 }
-
-
-                Rectangle {
+                Rectangle
+                {
                     id: screenView_controleArea
                     width: parent.width
                     height: parent.height*0.25
                     anchors.bottom: parent.bottom
                     color: "lightgrey"
-
-                    Rectangle {
+                    Rectangle
+                    {
                         id:screenView_controleArea_button
                         width: parent.width < parent.height ?parent.width : parent.height
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -131,7 +162,8 @@ ApplicationWindow {
                         border.width: 5
                         radius: width*0.5
 
-                        Text {
+                        Text
+                        {
                             id:screenView_controleArea_button_text
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
@@ -139,7 +171,7 @@ ApplicationWindow {
                             color: "white"
                             text: "Take my \n Picture!"
                             font.family: "Ubuntu"
-                            font.pixelSize: 28
+                            font.pixelSize: parent.height/6//28
                         }
 
                         MouseArea
@@ -154,9 +186,9 @@ ApplicationWindow {
                                 screenView.visible=false;
                                 camera.imageCapture.capture();
                                 screenView_pictureView_photoBIG_button.color = "red";
-                                //camera.imageCapture.captureToLocation("~/git/PhotoBooth/build-PhotoBooth-Desktop_Qt_5_4_0_GCC_64bit-Debug/Bilder"+Date.now()+".png");
+                                camera.imageCapture.captureToLocation("../../../Bilder/"+Date.now()+".png");
                                 screenView_pictureView_BigScreen.visible=true;
-                                camera.stop();
+                                //camera.stop();
                             }
                         }
                     }
@@ -173,9 +205,7 @@ ApplicationWindow {
                 anchors.rightMargin: 22
                 height: parent.height
                 color: "blue"
-
             }
-
 
         }
         Rectangle
@@ -183,8 +213,8 @@ ApplicationWindow {
             id: screenView_pictureView_BigScreen
             visible: false
             anchors { fill: parent; margins: 10 }
-
             color:"black"
+
             Image
             {
                 clip: true
@@ -205,36 +235,37 @@ ApplicationWindow {
                 color: "red"
                 border.width: 5
                 radius: width*0.5
-            }
-            Text
-            {
-                id:screenView_pictureView_photoBIG_button_text
-                anchors.horizontalCenter: screenView_pictureView_photoBIG_button.horizontalCenter
-                anchors.verticalCenter: screenView_pictureView_photoBIG_button.verticalCenter
-                //anchors.fill : parent
-                color: "white"
-                text: "back!"
-                font.family: "Ubuntu"
-                font.pixelSize: 28
-            }
-
-            MouseArea
-            {
-                id:screenView_pictureView_photoBIG_button_mousearea
-                anchors.fill: parent
-                onClicked:
+                Text
                 {
-                    screenView_pictureView_photoBIG_button.color = "darkred";
-                    screenView_pictureView_live.visible=true;
-                    screenView_pictureView_live.enabled=true;
-                    screenView.visible=true;
-                    screenView_pictureView_BigScreen.visible=false;
-                    screenView_controleArea_button.color="red";
-                    //screenView_pictureView_photoBIG.source="";
-                    camera.start();
+                    id:screenView_pictureView_photoBIG_button_text
+                    anchors.horizontalCenter: screenView_pictureView_photoBIG_button.horizontalCenter
+                    anchors.verticalCenter: screenView_pictureView_photoBIG_button.verticalCenter
+                    //anchors.fill : parent
+                    color: "white"
+                    text: "back!"
+                    font.family: "Ubuntu"
+                    font.pixelSize: screenView_pictureView_photoBIG_button.height/6
+                }
 
+                MouseArea
+                {
+                    id:screenView_pictureView_photoBIG_button_mousearea
+                    anchors.fill: parent
+                    onClicked:
+                    {
+                        screenView_pictureView_photoBIG_button.color = "darkred";
+                        screenView_pictureView_live.visible=true;
+                        screenView_pictureView_live.enabled=true;
+                        screenView.visible=true;
+                        screenView_pictureView_BigScreen.visible=false;
+                        screenView_controleArea_button.color="red";
+                        screenView_pictureView_photoBIG.source="";
+                        //camera.start();
+
+                    }
                 }
             }
+
         }
     }
 
@@ -249,3 +280,4 @@ ApplicationWindow {
         }
     }
 }
+
