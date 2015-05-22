@@ -174,11 +174,10 @@ ApplicationWindow {
                                 screenView_pictureView_live.visible=false;
                                 screenView_pictureView_live.enabled=false;
                                 screenView.visible=false;
-                                screenView_pictureView_BigScreen.visible=true;
                                 camera.imageCapture.capture();
                                 screenView_pictureView_photoBIG_button.color = "red";
-                                //camera.imageCapture.captureToLocation("test.jpg");
-
+                                camera.imageCapture.captureToLocation("../../../Bilder/"+Date.now()+".png");
+                                screenView_pictureView_BigScreen.visible=true;
                                 //camera.stop();
                             }
                         }
@@ -251,10 +250,9 @@ ApplicationWindow {
                     screenView_pictureView_live.visible=true;
                     screenView_pictureView_live.enabled=true;
                     screenView.visible=true;
-                    //VideoOutput.source=camera
                     screenView_pictureView_BigScreen.visible=false;
                     screenView_controleArea_button.color="red";
-                    //camera.imageCapture.capture();
+                    screenView_pictureView_photoBIG.source="";
                     //camera.start();
 
                 }
