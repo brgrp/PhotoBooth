@@ -23,8 +23,7 @@ ApplicationWindow {
         color: "white"
 
         //Functions
-        Camera
-        {
+        Camera {
             id: camera
             imageProcessing.whiteBalanceMode: CameraImageProcessing.WhiteBalanceAuto
             captureMode: Camera.CaptureStillImage
@@ -44,17 +43,12 @@ ApplicationWindow {
 
         }
 
-        Rectangle
-        {
+        Rectangle {
             id: screenView
             anchors { fill: parent; margins: 10 }
             Component.onCompleted: console.log("Completed Running!")
 
-
-
-
-            Rectangle
-            {
+            Rectangle {
                 id: screenView_left
                 visible: true
                 width: parent.width*0.2
@@ -63,8 +57,7 @@ ApplicationWindow {
                 color: "red"
             }
 
-            Rectangle
-            {
+            Rectangle {
                 id: screenView_midle
                 visible: true
                 width: parent.width*0.6
@@ -73,8 +66,7 @@ ApplicationWindow {
                 height: parent.height
                 color: "green"
 
-                Rectangle
-                {
+                Rectangle {
                     id: screenView_picture
                     visible: true
                     width: parent.width
@@ -83,8 +75,7 @@ ApplicationWindow {
                     height: parent.height*0.75
                     color: "lightgrey"
 
-                    Rectangle
-                    {
+                    Rectangle {
                         id: screenView_pictureView_frame
                         visible: true
                         //anchors.leftMargin: 22
@@ -99,8 +90,7 @@ ApplicationWindow {
                             source: "http://thumbs.dreamstime.com/z/abstraktes-pixel-dreieck-muster-38802215.jpg"
                         }
 
-                        Rectangle
-                        {
+                        Rectangle {
                             id: screenView_pictureView
                             height: parent.height*0.9
                             width: parent.height*0.9
@@ -113,8 +103,7 @@ ApplicationWindow {
 
 //                            transform: Scale {xScale: parent.height/screenView_pictureView_live.height; yScale: parent.height/screenView_pictureView_live.height}
 
-                            VideoOutput
-                            {
+                            VideoOutput {
                                 id: screenView_pictureView_live
                                 anchors.top:parent.top
                                 anchors.bottom: parent.bottom
@@ -129,8 +118,7 @@ ApplicationWindow {
                                 x:-(width-parent.width)/2
                             }
 
-                            Text
-                            {
+                            Text {
                                 x: parent.x+200
                                 anchors.verticalCenter: parent.verticalCenter
                                 //anchors.fill : parent
@@ -144,15 +132,13 @@ ApplicationWindow {
 
 
                 }
-                Rectangle
-                {
+                Rectangle {
                     id: screenView_controleArea
                     width: parent.width
                     height: parent.height*0.25
                     anchors.bottom: parent.bottom
                     color: "lightgrey"
-                    Rectangle
-                    {
+                    Rectangle {
                         id:screenView_controleArea_button
                         width: parent.width < parent.height ?parent.width : parent.height
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -162,8 +148,7 @@ ApplicationWindow {
                         border.width: 5
                         radius: width*0.5
 
-                        Text
-                        {
+                        Text {
                             id:screenView_controleArea_button_text
                             anchors.horizontalCenter: parent.horizontalCenter
                             anchors.verticalCenter: parent.verticalCenter
@@ -174,8 +159,7 @@ ApplicationWindow {
                             font.pixelSize: parent.height/6//28
                         }
 
-                        MouseArea
-                        {
+                        MouseArea {
                             id:screenView_controleArea_button_mousearea
                             anchors.fill: parent
                             onClicked:
@@ -186,7 +170,7 @@ ApplicationWindow {
                                 screenView.visible=false;
                                 camera.imageCapture.capture();
                                 screenView_pictureView_photoBIG_button.color = "red";
-                                camera.imageCapture.captureToLocation("../../../Bilder/"+Date.now()+".png");
+                                camera.imageCapture.captureToLocation("../../../../Bilder/"+Date.now()+".png");
                                 screenView_pictureView_BigScreen.visible=true;
                                 //camera.stop();
                             }
@@ -195,8 +179,7 @@ ApplicationWindow {
                 }
              }
 
-             Rectangle
-             {
+             Rectangle {
                 id: screenView_right
                 visible: true
                 width: parent.width*0.2
@@ -208,15 +191,13 @@ ApplicationWindow {
             }
 
         }
-        Rectangle
-        {
+        Rectangle {
             id: screenView_pictureView_BigScreen
             visible: false
             anchors { fill: parent; margins: 10 }
             color:"black"
 
-            Image
-            {
+            Image {
                 clip: true
                 id: screenView_pictureView_photoBIG
                 anchors.fill: parent
@@ -224,8 +205,7 @@ ApplicationWindow {
                 asynchronous: true
                 smooth: true
             }
-            Rectangle
-            {
+            Rectangle {
                 id:screenView_pictureView_photoBIG_button
                 anchors.right: parent.right
                 anchors.bottom: parent.bottom
@@ -247,8 +227,7 @@ ApplicationWindow {
                     font.pixelSize: screenView_pictureView_photoBIG_button.height/6
                 }
 
-                MouseArea
-                {
+                MouseArea {
                     id:screenView_pictureView_photoBIG_button_mousearea
                     anchors.fill: parent
                     onClicked:
